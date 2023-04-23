@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }}'s Subscription</title>
+</head>
+<body>
+<h1>{{ user.username }}'s Subscription Plan: {{ subscription.name }}</h1>
+<h2>Available Movies:</h2>
+<ul>
+    {% for movie in movies %}
+        <li><a href="{% url 'streaming:movie' movie.id %}">{{ movie.title }}</a></li>
+    {% endfor %}
+</ul>
+<a href="{% url 'streaming:index' %}">Back to Movie List</a>
+</body>
+</html>

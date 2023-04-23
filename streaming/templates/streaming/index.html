@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+</head>
+<body>
+<h1>Movies</h1>
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}! <a href="{% url 'streaming:user_subscription' %}">View My Subscription</a></p>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to view your subscription.</p>
+{% endif %}
+{% for movie in movies %}
+    <a href="{% url 'streaming:movie' movie.id %}"><h2>{{ movie.title }}</h2></a>
+    - Average Rating: {{ movie.average_rating|floatformat:1 }} stars <br>
+    - Number of Ratings: {{ movie.num_ratings }} <br>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% block content %}
+<h1>{{ user.username }}'s Reviews</h1>
+{% for review in reviews %}
+    <div class="review">
+        <h2>
+            <a href="{{ review.get_absolute_url }}">
+                {{ review.title }}
+            </a>
+        </h2>
+        <p class="review-meta">
+            <a href="{% url 'streaming:user_reviews' review.user.id %}">
+            {{ review.reviewer }}
+            </a>
+            rated it
+            {{ review.rating }}
+            {% if review.rating == 1 %}
+                star
+            {% else %}
+                stars
+            {% endif %}
+            <br>
+            {% if review.date_edited %}
+                Edited {{ review.date_edited }}
+            {% else %}
+                Reviewed {{ review.date_created }}
+            {% endif %}
+        </p>
+        {{ review.body|truncatewords:30|linebreaks }}
+    </div>
+{% empty %}
+    <p>
+        {{ user.username }} hasn't written any reviews yet.
+    </p>
+{% endfor %}
+{% endblock %}
